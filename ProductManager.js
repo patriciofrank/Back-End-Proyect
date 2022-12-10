@@ -1,18 +1,28 @@
+const fs = require("fs/promises");
+const { existsSync } = require("fs");
+
 class ProductManager {
-  static idGenerator = 0;
-  constructor() {
-    this.products = [];
+
+  constructor(path) {
+    this.path = path;
   }
 
-  getProducts() {
-    return this.products;
+  async getProducts() {
+    if (existsSync(this.path)) {
+      const products = await fs.readFile(this.path, "utf-8");
+      const listProducts = JSON.parse(products);
+      return listProducts;
+    } else {
+      return [];
+    }
   }
 
-  addProduct(title, description, price, thumbnail, stock, code) {
-    const serchCode = this.products.find((element) => code === element.code);
+  async addProduct(title, description, price, thumbnail, stock, code) {
+    // const to verify if all the product file are completed
     const infProd = title + description + price + thumbnail + stock + code;
+    const listProducts= await this.getProducts();
+    const serchCode=await listProducts.find(element=> element.code===code)
     if (!serchCode) {
-      ProductManager.idGenerator++;
       const newProduct = {
         title: title,
         description: description,
@@ -20,25 +30,63 @@ class ProductManager {
         thumbnail: thumbnail,
         stock: stock,
         code: code,
-        id: ProductManager.idGenerator,
+        id: listProducts.length+1 ,
       };
       if (!infProd.includes(undefined)) {
-        this.products.push(newProduct);
+       listProducts.push(newProduct);
+       await fs.writeFile(this.path, JSON.stringify(listProducts,null,'\t'));
       } else {
-        console.error("Complete all the files");
+        console.error("You must complete all the files to add a new product");
       }
     } else {
       return console.log("El codigo ya se encuentra en uso");
     }
   }
 
-  getProductsById(id) {
-    const serchById = this.products.find((element) => id === element.id);
+  async getProductsById(id) {
+    const listProducts= await this.getProducts();
+    const serchById = listProducts.find((element) => id === element.id);
     if (!serchById) {
       return console.log("not found");
     } else {
       return console.log(serchById);
     }
   }
+  async updateProduct(id,newtitle, newdescription, newprice, newthumbnail, newstock, newcode){
+    const listProducts= await this.getProducts();
+    const serchById = listProducts.findIndex((element) => id === element.id);
+    if (serchById<0) {
+      return console.log("not found");
+    } else {
+      const product= listProducts[serchById]
+      const update={
+        ...product,
+        title: newtitle,
+        description: newdescription,
+        price: newprice,
+        thumbnail: newthumbnail,
+        stock: newstock,
+        code: newcode,
+      }
+      listProducts[serchById]=update;
+      await fs.writeFile(this.path, JSON.stringify(listProducts,null,'\t'));
+        return update;
+    }
+
+  }
+  async deleteProduct(id) {
+    const listProducts= await this.getProducts();
+    const serchById = listProducts.findIndex((element) => id === element.id);
+    if (!serchById) {
+      return console.log("the element doesent exist");
+    } else {
+      listProducts.splice(serchById);
+      console.log("Element deleted");
+      await fs.writeFile(this.path, JSON.stringify(listProducts,null,'\t'));
+    }
+  }
 }
-const productManager = new ProductManager();
+const productManager = new ProductManager("./products/products.json");
+
+
+productManager.deleteProduct(0);
