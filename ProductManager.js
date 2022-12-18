@@ -1,7 +1,9 @@
 const fs = require("fs/promises");
 const { existsSync } = require("fs");
+const { isTypedArray } = require("util/types");
 
 class ProductManager {
+  static counterId=0
   constructor(path) {
     this.path = path;
   }
@@ -12,7 +14,9 @@ class ProductManager {
       const listProducts = JSON.parse(products);
       return listProducts;
     } else {
-      return [];
+      const newList=[];
+    await fs.writeFile("./products/products.json",JSON.stringify(newList,null,'\t'));
+    return newList;
     }
   }
   // Add new Products
@@ -24,6 +28,7 @@ class ProductManager {
       (element) => element.code === code
     );
     if (!serchCode) {
+      ProductManager.counterId++;
       const newProduct = {
         title: title,
         description: description,
@@ -31,11 +36,12 @@ class ProductManager {
         thumbnail: thumbnail,
         stock: stock,
         code: code,
-        id: listProducts.length+1,
+        id:ProductManager.counterId,
+        // id: listProducts.length+1,
       };
       if (!infProd.includes(undefined)) {
         listProducts.push(newProduct);
-        await fs.writeFile(this.path, JSON.stringify(listProducts, null, "\t"));
+        await fs.writeFile(this.path, JSON.stringify(listProducts, null,'\t'));
       } else {
         console.error("You must complete all the files to add a new product");
       }
@@ -80,7 +86,7 @@ class ProductManager {
       };
       listProducts[serchById] = update;
       console.log("The product was sussesfuly updated");
-      await fs.writeFile(this.path, JSON.stringify(listProducts, null, "\t"));
+      await fs.writeFile(this.path, JSON.stringify(listProducts, null,'\t'));
       return update;
     }
   }
@@ -100,5 +106,10 @@ class ProductManager {
 }
 const productManager = new ProductManager("./products/products.json");
 
+
+
+
+  
+  
 
 

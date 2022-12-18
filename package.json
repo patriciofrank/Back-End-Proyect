@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend Proyect mern stack",
+  "main": "ProductManager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patriciofrank/Backend-Proyect.git"
+  },
+  "author": "Frank Patricio Agustin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patriciofrank/Backend-Proyect/issues"
+  },
+  "homepage": "https://github.com/patriciofrank/Backend-Proyect#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
