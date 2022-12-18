@@ -1,8 +1,7 @@
-const products=require("./ProductManager")
-const product = new products("./products/products.json")
-console.log(product.getProducts())
 //create server
-const express=require('express')
+const express=require('express');
+const products=require("./ProductManager")
+
 
 const app=express();
 app.get('/',(req,res)=>{
@@ -10,18 +9,18 @@ app.get('/',(req,res)=>{
     });
 
 app.get('/products',(async (req,res)=>{
-await res.send(productList.getProducts())
+ await res.send(products.getProducts());
 }));
 
 app.get('/products/:pId',(req,res)=>{
     const pId=req.params.pId;
-    const id=product.find(product=>product.id === +pId);
+    const id=products.getProductsById(pId);
     if(!id){
-        return res.status(404).send("Produnct not found")
+       res.send(id);
     }else{
-        res.send(product);
+        return res.status(404).send("Produnct not found")
     };
     });
-app.listen(8080,()=>{
-    console.log("Server is up and running on port 8080")
+app.listen(3000,()=>{
+    console.log("Server is up and running on port 3000")
 })
