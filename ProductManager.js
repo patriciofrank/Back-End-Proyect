@@ -1,9 +1,9 @@
 const fs = require("fs/promises");
 const { existsSync } = require("fs");
-const { isTypedArray } = require("util/types");
+
 
 class ProductManager {
-  static counterId=0
+  // static counterId=0;
   constructor(path) {
     this.path = path;
   }
@@ -28,7 +28,7 @@ class ProductManager {
       (element) => element.code === code
     );
     if (!serchCode) {
-      ProductManager.counterId++;
+      // ProductManager.counterId++;
       const newProduct = {
         title: title,
         description: description,
@@ -36,8 +36,8 @@ class ProductManager {
         thumbnail: thumbnail,
         stock: stock,
         code: code,
-        id:ProductManager.counterId,
-        // id: listProducts.length+1,
+        // id:ProductManager.counterId,
+        id: listProducts.length+1,
       };
       if (!infProd.includes(undefined)) {
         listProducts.push(newProduct);
@@ -104,12 +104,10 @@ class ProductManager {
     }
   }
 }
-const productManager = new ProductManager("./products/products.json");
 
 
 
 
-  
-  
+module.exports=ProductManager
 
 

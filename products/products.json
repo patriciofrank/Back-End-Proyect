@@ -1,38 +1,38 @@
 [
 	{
-		"title": "id",
-		"description": "newtitle",
-		"price": "newdescription",
-		"thumbnail": "newprice",
-		"stock": "newthumbnail",
-		"code": "newsock",
-		"id": 4
+		"title": "title",
+		"description": "description",
+		"price": "price",
+		"thumbnail": "thumbnail",
+		"stock": "stock",
+		"code": "2244",
+		"id": 1
 	},
 	{
-		"title": "id",
-		"description": "newtitle",
-		"price": "newdescription",
-		"thumbnail": "newprice",
-		"stock": "newthumbnail",
-		"code": "netock",
-		"id": 3
-	},
-	{
-		"title": "id",
-		"description": "newtitle",
-		"price": "newdescription",
-		"thumbnail": "newprice",
-		"stock": "newthumbnail",
-		"code": "nesswstock",
+		"title": "title",
+		"description": "description",
+		"price": "price",
+		"thumbnail": "thumbnail",
+		"stock": "stock",
+		"code": "224",
 		"id": 2
 	},
 	{
-		"title": "id",
-		"description": "newtitle",
-		"price": "newdescription",
-		"thumbnail": "newprice",
-		"stock": "newthumbnail",
-		"code": "newstock",
-		"id": 1
+		"title": "title",
+		"description": "description",
+		"price": "price",
+		"thumbnail": "thumbnail",
+		"stock": "stock",
+		"code": "22544",
+		"id": 3
+	},
+	{
+		"title": "title",
+		"description": "description",
+		"price": "price",
+		"thumbnail": "thumbnail",
+		"stock": "stock",
+		"code": "22224",
+		"id": 4
 	}
 ]
