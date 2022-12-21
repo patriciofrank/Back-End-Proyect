@@ -109,4 +109,4 @@ const productManager = new ProductManager("./products/products.json");
 
 productManager.getProducts();
 
-module.exports = productManager;
+module.exports = ProductManager;
