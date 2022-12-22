@@ -51,7 +51,7 @@ class ProductManager {
   // filter a product by id
   async getProductsById(id) {
     const listProducts = await this.getProducts();
-    const serchById = listProducts.find((element) => id === element.id);
+    const serchById = listProducts.find((element) => Number(id) === element.id);
     if (!serchById) {
       return console.log("The id dont exist please try other id");
     } else {
