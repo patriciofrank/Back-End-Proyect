@@ -1,8 +1,8 @@
 //create server
 const express=require('express');
 const productsManager=require("./ProductManager");
-const products= new productsManager("./products/products.json");
-
+const products= new productsManager();
+const PORT= 4000;
 const app=express();
 app.use(express.urlencoded({extended:true}));
 app.get('/',(req,res)=>{
@@ -43,6 +43,16 @@ app.get('/products/:pId', (async (req,res) => {
     })); 
 
 
-app.listen(3000,()=>{
-    console.log("Server is up and running on port 3000")
-})
+    app.listen(PORT, () => {
+        const msg = `
+        Server listen on http://localhost:${PORT}
+          
+        Pruebas:
+      
+        http://localhost:${PORT}/products
+        http://localhost:${PORT}/products?limit=5
+        http://localhost:${PORT}/product/1
+      `;
+        console.log(msg);
+      });
+      
