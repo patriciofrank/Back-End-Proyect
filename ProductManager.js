@@ -3,7 +3,7 @@ class ProductManager {
   // static counterId=0;
   constructor() {
     this.products = [];
-    this.path = "./products.json";
+    this.path = "products.json";
   }
   static id = 0;
 
@@ -41,6 +41,7 @@ class ProductManager {
   getProducts = async () => {
     let productsAll = await this.readProducts();
     console.log(productsAll);
+    return productsAll
   };
   exist = async (id) => {
     let productsAll = await this.readProducts();
