@@ -1,12 +1,18 @@
 //create server
 import express from"express";
 import routerProd  from './routes/product.js'
+import {__dirname} from './utils/path.js'
 
 const PORT = 4000;
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
-app.use('/', routerProd)
+
+
+app.use('/static', express.static(__dirname + '/../public'))
+app.use('/products', routerProd)
+
+
 
 
 app.listen(PORT, () => {
