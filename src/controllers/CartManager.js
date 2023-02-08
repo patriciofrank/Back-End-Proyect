@@ -15,7 +15,7 @@ export class CartManager{
 
  async addProduct (item, cantidad)  {
     const cartP = JSON.parse(await fs.readFile(this.path, 'utf-8'))
-    const productosB = [...productos];
+    const productosB = [...cartP];
     //modificate product cart quantity
     if (inTheCart(item.id)) {
       const productRep = productosB.findIndex(
