@@ -1,6 +1,5 @@
 import {promises as fs} from 'fs'
-import { ProductManager } from "../controllers/ProductManager.js";
-const productos =await JSON.parse(await fs.readFile(ProductManager("./models/products.json"), 'utf-8'))
+
 
 export class CartManager{ 
     constructor(path) {
