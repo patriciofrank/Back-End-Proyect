@@ -1,75 +1,12 @@
 //create server
-const express = require('express');
-const productsManager = require("./ProductManager");
-const products = new productsManager("products.json");
+import express from"express";
+import routerProd  from './routes/product.js'
+
 const PORT = 4000;
 const app = express();
-app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.get('/', (req, res) => {
-    res.send("Bienvenido a mi servidor de pruebas backend")
-});
-
-app.get('/products', (async (req, res) => {
-    try {
-        const productFound = await products.getProducts();
-        const limit = req.query.limit
-        if (!productFound) {
-            res.send("Products dont found")
-        } else {
-            if (!limit) {
-                res.send(productFound)
-            } else {
-                productFound.length = limit
-                res.send(productFound)
-            }
-        }
-    }
-    catch (error) {
-
-        console.log(error);
-
-    }
-}));
-
-app.get('/products/:pid', async (req, res) => {
-
-    try {
-        const id = parseInt(req.params.pid)
-        const result = await products.getProductById(id)
-        const send = result ? `Se ha encontrado el producto "${result.title}" asociado con el ID: ${result.id}` : `No se pudo encontrar un producto`
-        res.send(send)
-    } catch (error) {
-        console.log(error);
-    }
-
-})
-app.post('/products', async (req, res) => {
-    try {
-        const mens = await products.addProduct(req.body)
-        res.send(mens)
-    } catch (error) {
-        console.log(error);
-    }
-})
-app.delete('/products/:pid', async (req, res) => {
-    try {
-        const mens = await products.deleteProduct(req.params.pid)
-        res.send(mens)
-    } catch (error) {
-        console.log(error);
-    }
-
-})
-app.put('/products/:pid', async (req, res) => {
-    try {
-        const mens = await products.updateProduct(req.params.pid, req.body)
-        res.send(mens)
-    } catch (error) {
-        console.log(error);
-    }
-})
-
+app.use(express.json())
+app.use('/', routerProd)
 
 
 app.listen(PORT, () => {

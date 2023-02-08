@@ -1,15 +1,24 @@
-const fs = require("fs/promises");
+import {promises as fs} from 'fs'
 
-class ProductManager {
+
+export class ProductManager {
     constructor(path) {
         this.path = path;
     }
-
+    // static incrementarID() {
+    //     if(this.idIncrement) {
+    //         this.idIncrement++
+    //     } else {
+    //         this.idIncrement = 1
+    //     }
+    //     return this.idIncrement
+    // }
    
     async addProduct(producto) {
         try {  
                 const prods = JSON.parse(await fs.readFile(this.path, 'utf-8'))
                 producto.id =prods.length +1
+                // producto.id =ProductManager.incrementarID()
                 prods.push(producto)
                 await fs.writeFile(this.path, JSON.stringify(prods, null, 2))
                 return "Producto creado"
@@ -78,4 +87,3 @@ class ProductManager {
     }
 
 }
-module.exports = ProductManager
