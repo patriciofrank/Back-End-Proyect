@@ -6,46 +6,56 @@ export class CartManager{
         this.path = path;
     }
 
-  async  inTheCart (id) {
-    // verify if the id is in cart
-    const cartP = JSON.parse(await fs.readFile(this.path, 'utf-8'))
-    const productoExist = cartP.some((elemento) => elemento.id === id);
-    return productoExist;
-  };
+    async getProducts() {
+      try {
+          const cart = JSON.parse(await fs.readFile(this.path, 'utf-8'))
+          return cart
+      } catch (error) {
+          return error
+      }
+
+  }
+
+  // async  inTheCart (id) {
+  //   // verify if the id is in cart
+  //   const cartP = JSON.parse(await fs.readFile(this.path, 'utf-8'))
+  //   const productoExist = cartP.some((elemento) => elemento.id === id);
+  //   return productoExist;
+  // };
 
  async addProduct (item, cantidad)  {
     const cartP = JSON.parse(await fs.readFile(this.path, 'utf-8'))
     const productosB = [...cartP];
     //modificate product cart quantity
-    if (inTheCart(item.id)) {
-      const productRep = productosB.findIndex(
-        (elemento) => elemento.id === item.id
-      );
-      productosB[productRep].cantidad += cantidad;
-    } else {
+    // if (inTheCart(item.id)) {
+    //   const productRep = productosB.findIndex(
+    //     (elemento) => elemento.id === item.id
+    //   );
+    //   productosB[productRep].cantidad += cantidad;
+    // } else {
       // add newproduct to cart
       const newProduct = {
         ...item,
         cantidad: cantidad,
+        id : productosB.length +1
       };
       productosB.push(newProduct);
-      await fs.writeFile(this.path, JSON.stringify(cartP, null, 2));
+      await fs.writeFile(this.path, JSON.stringify(productosB, null, 2));
       return "product add succesfuly"
-    }
+    
   };
 
 
    async deleteCart () {
-    const cartP = JSON.parse(await fs.readFile(this.path, 'utf-8'))
-    cartP=[];
-    await fs.writeFile(this.path, JSON.stringify(cartP, null, 2));
+    const cartDelete=[];
+    await fs.writeFile(this.path, JSON.stringify(cartDelete, null, 2));
     return "cart deleted"
   };
   async deleteItem (id)  {
     try {
         const cartP = JSON.parse(await fs.readFile(this.path, 'utf-8'))
         if (cartP.some(prod => prod.id === parseInt(id))) {
-            const cartFilter = prods.filter(prod => prod.id !== parseInt(id))
+            const cartFilter = cartP.filter(prod => prod.id !== parseInt(id))
             await fs.writeFile(this.path, JSON.stringify(cartFilter,null,2))
             return "Producto eliminado"
         } else {
