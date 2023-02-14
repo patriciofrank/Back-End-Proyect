@@ -11,7 +11,7 @@ app.use(express.json())
 
 
 app.use('/static', express.static(__dirname + '/../public'))
-app.use('/products', routerProd)
+app.use('/api/products', routerProd)
 app.use('/api/cart', routerCart)
 
 
@@ -23,9 +23,9 @@ app.listen(PORT, () => {
           
         Pruebas:
       
-        http://localhost:${PORT}/products
-        http://localhost:${PORT}/products?limit=5
-        http://localhost:${PORT}/product/1
+        http://localhost:${PORT}/api/products
+        http://localhost:${PORT}/api/products?limit=5
+        http://localhost:${PORT}/api/product/1
         http://localhost:${PORT}/api/cart
         http://localhost:${PORT}/api/cart/1
       `;

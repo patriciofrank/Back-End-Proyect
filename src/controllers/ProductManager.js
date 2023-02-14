@@ -5,23 +5,14 @@ export class ProductManager {
     constructor(path) {
         this.path = path;
     }
-    // static incrementarID() {
-    //     if(this.idIncrement) {
-    //         this.idIncrement++
-    //     } else {
-    //         this.idIncrement = 1
-    //     }
-    //     return this.idIncrement
-    // }
    
     async addProduct(producto) {
         try {  
                 const prods = JSON.parse(await fs.readFile(this.path, 'utf-8'))
                 producto.id =prods.length +1
-                // producto.id =ProductManager.incrementarID()
                 prods.push(producto)
                 await fs.writeFile(this.path, JSON.stringify(prods, null, 2))
-                return "Producto creado"
+                return "Product added successfully"
         } catch (error) {
             return error
         }
@@ -43,7 +34,7 @@ export class ProductManager {
             if (prods.some(prod => prod.id === parseInt(id))) {
                 return prods.find(prod => prod.id === parseInt(id))
             } else {
-                return "Producto no encontrado"
+                return "Product not found"
             }
         } catch (error) {
             return error
@@ -62,9 +53,9 @@ export class ProductManager {
                 prods[index].code = code
                 prods[index].stock = stock
                 await fs.writeFile(this.path, JSON.stringify(prods, null, 2))
-                return "Producto actualizado"
+                return "Product updated success"
             } else {
-                return "Producto no encontrado"
+                return "Product not found"
             }
         } catch (error) {
             return error
@@ -77,9 +68,9 @@ export class ProductManager {
             if (prods.some(prod => prod.id === parseInt(id))) {
                 const prodsFiltrados = prods.filter(prod => prod.id !== parseInt(id))
                 await fs.writeFile(this.path, JSON.stringify(prodsFiltrados,null,2))
-                return "Producto eliminado"
+                return "Product deleted"
             } else {
-                return "Producto no encontrado"
+                return "Product not found"
             }
         } catch (error) {
             return error

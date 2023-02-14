@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { CartManager } from "../controllers/CartManager.js";
-const cart = new CartManager("./models/cart.json");
+const cart = new CartManager("models/carts.json");
 const routerCart = Router()
 
 
