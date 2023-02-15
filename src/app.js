@@ -3,17 +3,29 @@ import express from"express";
 import routerProd  from './routes/product.js'
 import routerCart from "./routes/cart.js";
 import {__dirname} from './utils/path.js'
+import { engine } from "express-handlebars";
+import * as path from "path"
 
 const PORT = 4000;
 const app = express();
+//middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
+app.engine("handlebars",engine())
+app.set("view engine","handlebars")
+app.set("views", path.resolve(__dirname,"./views"))
 
-
+//routes
 app.use('/static', express.static(__dirname + '/../public'))
 app.use('/api/products', routerProd)
 app.use('/api/cart', routerCart)
 
+app.get('/static',(req,res)=>{
+  res.render("home",{
+    title:"BackendProyect",
+    mensage:"to my backend proyect"
+  })
+})
 
 
 
