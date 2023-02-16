@@ -6,6 +6,8 @@ import { __dirname } from './path.js'
 import { engine } from "express-handlebars";
 import * as path from "path"
 import { Server } from "socket.io";
+import { ProductManager } from "./controllers/ProductManager.js";
+const products = new ProductManager("src/models/products.json");
 
 const PORT = 4000;
 const app = express();
@@ -37,12 +39,11 @@ app.use('/static', express.static(__dirname + './public'))
 app.use('/api/products', routerProd)
 app.use('/api/cart', routerCart)
 
-app.get('/', (req, res) => {
-  console.log( routerProd.get('/'))
-  // const products=routerProd.get('/')
+app.get('/',async (req, res) => {
+  const productsList = await products.getProducts()
   res.render("home", {
     title: "BackendProyect",
-    // products
+    productsList
   })
 })
 
