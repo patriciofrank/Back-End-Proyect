@@ -9,7 +9,7 @@ import { Server } from "socket.io";
 import { ProductManager } from "./controllers/ProductManager.js";
 const products = new ProductManager("src/models/products.json");
 
-const PORT = 4000;
+const PORT = 8080;
 const app = express();
 const server = app.listen(PORT, () => {
   const msg = `
@@ -35,7 +35,7 @@ app.set("view engine", "handlebars")
 app.set("views", path.resolve(__dirname, "./views"))
 
 //routes
-app.use('/static', express.static(__dirname + './public'))
+app.use('/', express.static(__dirname + './public'))
 app.use('/api/products', routerProd)
 app.use('/api/cart', routerCart)
 
