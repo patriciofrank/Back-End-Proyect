@@ -1,9 +1,89 @@
-<div>
-    {{#each productsList}}
-            <div>
-                <p>{{this.id}}</p>
-                <p>{{this.title}}</p>
-                <p>{{this.price}}</p>
-            </div>
-        {{/each}}
-</div>
+ <div >
+
+   
+
+ {{#if productsList}}
+
+   
+
+ <table id="table">
+
+   
+
+ <tr>
+
+   
+
+ <th>Nombre</th>
+
+   
+
+ <th>Precio</th>
+
+   
+
+ <th>Imagen</th>
+
+   
+
+ </tr>
+
+   
+
+ {{#each productsList}}
+
+   
+
+ <tr>
+
+   
+
+ <td>{{this.title}}</td>
+
+   
+
+ <td>{{this.price}}</td>
+
+   
+
+ <td>
+
+   
+
+ <img src={{this.thumbnail}} style="width: 50px;"></img>
+
+   
+
+ </td>
+
+   
+
+ </tr>
+
+   
+
+ {{/each}}
+
+   
+
+ </table>
+
+   
+
+ {{else}}
+
+   
+
+ <span>No hay productos</span>
+
+   
+
+ {{/if}}
+
+   
+
+ </div>
+
+   
+
+
