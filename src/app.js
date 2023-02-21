@@ -54,9 +54,29 @@ app.get('/realtimeProducts',async (req, res) => {
 })
 
 
-io.on("connection", (socket) => {
-  console.log("Connected to socket")
-  socket.on('message', info => { console.log(info) })
-  socket.broadcast.emit('event-admin', 'hi you are the admin') 
-  socket.emit('event-general', "Hi to every users")
-})
+io.on("connection", socket => {
+
+  console.log("New conection", socket.id);
+ 
+  socket.on("disconnect", () => {
+  console.log(socket.id, "disconnected");
+  });
+  socket.on('realtimeProducts', async () => {
+    console.log('>>> realtimeProducts')
+    const allProducts = await products.getProducts()
+    socket.emit('realtimeProducts', allProducts)
+  })
+  socket.on("add-product", product => {
+  products.addProduct(product);
+  io.emit("update-products", product);
+ 
+  });
+ 
+       app.use((err, req, res, next) => { 
+ 
+  console.log(err);
+ 
+  res.status(500).json({ err, message: "Something went wrong, sorry" });
+ 
+  })
+});
