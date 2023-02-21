@@ -46,13 +46,13 @@ app.get('/',async (req, res) => {
   })
 })
 
-// app.get('/realtimeProducts',async (req, res) => {
-//   const productsList = await products.getProducts()
-//   res.render("home", {
-//     title: "BackendProyect",
-//     productsList
-//   })
-// })
+app.get('/realtimeProducts',async (req, res) => {
+  const productsList = await products.getProducts()
+  res.render("home", {
+    title: "BackendProyect",
+    productsList
+  })
+})
 
 
 io.on("connection", socket => {
