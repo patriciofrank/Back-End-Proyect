@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.engine("handlebars", engine())
 app.set("view engine", "handlebars")
-app.set("views", path.resolve(__dirname, "./views"))
+app.set("views", path.resolve(__dirname, "views"))
 
 //routes
 app.use('/', express.static(__dirname + "/public"))
@@ -62,18 +62,20 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
   console.log(socket.id, "disconnected");
   });
+
   socket.on('realtimeProducts', async () => {
     console.log('>>> realtimeProducts')
     const allProducts = await products.getProducts()
     socket.emit('realtimeProducts', allProducts)
   })
+
   socket.on("add-product", product => {
   products.addProduct(product);
   io.emit("update-products", product);
  
   });
  
-       app.use((err, req, res, next) => { 
+   app.use((err, req, res, next) => { 
  
   console.log(err);
  
