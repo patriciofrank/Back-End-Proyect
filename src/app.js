@@ -38,18 +38,18 @@ app.set("views", path.resolve(__dirname, "views"))
 app.use('/', express.static(__dirname + "/public"))
 app.use('/api/products', routerProd)
 app.use('/api/cart', routerCart)
-app.get('/',async (req, res) => {
+app.get('/', async (req, res) => {
   const productsList = await products.getProducts()
   res.render("home", {
-    titulo: "BackendProyect",
+    titulo: "Home",
     productsList
   })
 })
 
-app.get('/realtimeProducts',async (req, res) => {
+app.get('/realtimeProducts', async (req, res) => {
   const productsList = await products.getProducts()
-  res.render("home", {
-    title: "BackendProyect",
+  res.render("partials/realtimeProducts", {
+    titulo: "RealtimeProducts",
     productsList
   })
 })
@@ -58,28 +58,27 @@ app.get('/realtimeProducts',async (req, res) => {
 io.on("connection", socket => {
 
   console.log("New conection", socket.id);
- 
-  socket.on("disconnect", () => {
-  console.log(socket.id, "disconnected");
+  socket.on('mensagge', info => {
+    console.log(info)
+  })
+  socket.on("Disconnect", () => {
+    console.log(socket.id, "disconnected");
   });
 
   socket.on('realtimeProducts', async () => {
-    console.log('>>> realtimeProducts')
     const allProducts = await products.getProducts()
-    socket.emit('realtimeProducts', allProducts)
+    console.log(allProducts)
   })
+    socket.on("add-product", product => {
+    products.addProduct(product);
+    io.emit("update-products", product);
+    });
 
-  socket.on("add-product", product => {
-  products.addProduct(product);
-  io.emit("update-products", product);
- 
-  });
- 
-   app.use((err, req, res, next) => { 
- 
-  console.log(err);
- 
-  res.status(500).json({ err, message: "Something went wrong, sorry" });
- 
+  app.use((err, req, res, next) => {
+
+    console.log(err);
+
+    res.status(500).json({ err, message: "Something went wrong, sorry" });
+
   })
 });

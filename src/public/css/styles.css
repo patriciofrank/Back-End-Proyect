@@ -3,3 +3,18 @@ body {
     font-size: 3rem;
     color: white;
 }
+#table{
+    margin: auto;
+}
+#table tbody{
+    display: flex;
+    flex-direction: column;
+    gap:8rem;
+    align-items: center;
+}
+#table tr{
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+}
+
