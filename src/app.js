@@ -39,10 +39,9 @@ app.use('/', express.static(__dirname + "/public"))
 app.use('/api/products', routerProd)
 app.use('/api/cart', routerCart)
 app.get('/', async (req, res) => {
-  const productsList = await products.getProducts()
   res.render("home", {
     titulo: "Home",
-    productsList
+    hometitle:"Bienvenido a mi proyecto back-end"
   })
 })
 

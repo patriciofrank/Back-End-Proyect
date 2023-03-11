@@ -29,10 +29,8 @@ thumbnailInput.value = "";
 });
 
 socket.on("update-products", product => {
-const template = Handlebars.compile(
-"<td>{{title}}</td><td>{{price}}</td><td><img src={{thumbnail}} style='width:60px;'></img></td>"
-);
 const tr = document.createElement("tr");
-tr.innerHTML = template(product)
+tr.innerHTML = `<td>${product.title}</td><td>${product.price}</td><td><img src=${product.thumbnail} style="width:150px;"></img></td>`;
 table.appendChild(tr);
+console.log("Product added successfuly")
 });
