@@ -7,7 +7,7 @@ const routerCart = Router()
 
 routerCart.get('/', ( (req, res) => {
     try {
-        const cartFound = cart;
+        const cartFound = cart.getElement();
 
         if (!cartFound) {
             res.send("Products dont found")
@@ -24,26 +24,26 @@ routerCart.get('/', ( (req, res) => {
     }
 }));
 
-routerCart.post('/', async (req, res) => {
+routerCart.post('/',  (req, res) => {
     try {
-        const mens = await cart.addProduct(req.body)
+        const mens =  cart.addElement(req.body)
         res.send(mens)
     } catch (error) {
         console.log(error);
     }
 })
-routerCart.delete('/:cid', async (req, res) => {
+routerCart.delete('/:cid',  (req, res) => {
     try {
-        const mens = await cart.deleteItem(req.params.cid)
+        const mens =  cart.deleteElement(req.params.cid)
         res.send(mens)
     } catch (error) {
         console.log(error);
     }
 
 })
-routerCart.delete('/', async (req, res) => {
+routerCart.delete('/',  (req, res) => {
     try {
-        const mens = await cart.deleteCart(req.params)
+        const mens = cart.deleteElement(req.params)
         res.send(mens)
     } catch (error) {
         console.log(error);
