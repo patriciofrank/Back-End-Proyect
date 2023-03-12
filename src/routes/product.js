@@ -1,13 +1,14 @@
 import {Router} from"express"
-import { ProductManager } from "../controllers/ProductManager.js";
-const products = new ProductManager("models/products.json");
+import { getManagerProducts } from "../dao/daoManager.js";
+import { ProductMongoDB } from "../dao/MongoDB/models/Product.js";
+const products = new ProductMongoDB();
 const routerProd=Router()
 
 
 
 routerProd.get('/', (async (req, res) => {
     try {
-        const productFound = await products.getProducts();
+        const productFound = await getManagerProducts();
         const limit = req.query.limit
         if (!productFound) {
             res.send("Products dont found")
@@ -26,6 +27,7 @@ routerProd.get('/', (async (req, res) => {
 
     }
 }));
+
 routerProd.get('/:pid', async (req, res) => {
 
     try {
