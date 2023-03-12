@@ -1,13 +1,13 @@
 import {Router} from"express"
-import { getManagerProducts } from "../dao/daoManager.js";
-const product=getManagerProducts()
+import { ProductMongoDB } from "../dao/MongoDB/models/Product.js";
+const product=new ProductMongoDB()
 const routerProd=Router()
 
 
 
 routerProd.get('/', ( (req, res) => {
     try {
-        const productFound = product.getElement();
+        const productFound = product.getElements();
         const limit = req.query.limit
         if (!productFound) {
             res.send("Products dont found")

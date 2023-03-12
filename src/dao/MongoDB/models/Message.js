@@ -1,4 +1,4 @@
-import { ManagerMongoDB } from "../../../db/gestorMongoDb";
+import { ManagerMongoDB } from "../../../db/gestorMongoDb.js";
 
 
 const schema ={
@@ -7,8 +7,9 @@ const schema ={
     menssage:{type:String, require:true}
 }
 
-export class MensajeMongoDB extends ManagerMongoDB {
+export class MessageMongoDB extends ManagerMongoDB {
     constructor(){
         super(process.env.MONGODBURL,"message",schema)
     }
+
 }

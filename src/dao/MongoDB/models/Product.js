@@ -13,4 +13,5 @@ export class ProductMongoDB extends ManagerMongoDB {
     constructor(){
         super(process.env.MONGODBURL,"products",schema)
     }
+   
 }

@@ -7,8 +7,8 @@ import { __dirname } from './path.js'
 import { engine } from "express-handlebars";
 import * as path from "path"
 import { Server } from "socket.io";
-import { getManagerMessages } from "./dao/daoManager.js"
-import mongoose from "mongoose";
+import { MessageMongoDB } from "./dao/MongoDB/models/Message.js"
+
 
 
 const app = express();
@@ -62,7 +62,7 @@ io.on("connection", async (socket) => {
   console.log("New conection", socket.id);
 
   socket.on("message", async (info) => {
-    const data = await getManagerMessages()
+    const data = MenssageMongoDB.getElements()
     console.log(data)
     const managerMessage = new data.ManagerMenssageMongoDB
     managerMessage.addElements([info]).then(() => {
