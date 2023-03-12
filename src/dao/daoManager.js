@@ -1,5 +1,5 @@
-export const getManagerMenssages = async () => {
-    const modelMessage = process.env.SELECTEDBDD == 1 ? await import('./MongoDB/models/Menssage.js') :
+export const getManagerMessages = async () => {
+    const modelMessage = process.env.SELECTEDBDD == 1 ? await import('./MongoDB/models/Message.js') :
         await import('./Postgresql/models/Menssage.js')
     return modelMessage
 }

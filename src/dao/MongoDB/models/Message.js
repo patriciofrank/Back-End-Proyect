@@ -9,6 +9,6 @@ const schema ={
 
 export class MensajeMongoDB extends ManagerMongoDB {
     constructor(){
-        super(process.env.MONGODBURL,"menssage",schema)
+        super(process.env.MONGODBURL,"message",schema)
     }
 }

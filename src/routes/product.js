@@ -1,14 +1,13 @@
 import {Router} from"express"
 import { getManagerProducts } from "../dao/daoManager.js";
-import { ProductMongoDB } from "../dao/MongoDB/models/Product.js";
-const products = new ProductMongoDB();
+const product=getManagerProducts()
 const routerProd=Router()
 
 
 
-routerProd.get('/', (async (req, res) => {
+routerProd.get('/', ( (req, res) => {
     try {
-        const productFound = await getManagerProducts();
+        const productFound = product.getElement();
         const limit = req.query.limit
         if (!productFound) {
             res.send("Products dont found")
@@ -28,37 +27,37 @@ routerProd.get('/', (async (req, res) => {
     }
 }));
 
-routerProd.get('/:pid', async (req, res) => {
+routerProd.get('/:pid', (req, res) => {
 
     try {
         const id = parseInt(req.params.pid)
-        const result = await products.getProductById(id)
+        const result =  product.getElementById(id)
         res.send(result)
     } catch (error) {
         console.log(error);
     }
 
 })
-routerProd.post('/', async (req, res) => {
+routerProd.post('/', (req, res) => {
     try {
-        const mens = await products.addProduct(req.body)
+        const mens =  product.addElements(req.body)
         res.send(mens)
     } catch (error) {
         console.log(error);
     }
 })
-routerProd.delete('/:pid', async (req, res) => {
+routerProd.delete('/:pid', (req, res) => {
     try {
-        const mens = await products.deleteProduct(req.params.pid)
+        const mens =  product.deleteElement(req.params.pid)
         res.send(mens)
     } catch (error) {
         console.log(error);
     }
 
 })
-routerProd.put('/:pid', async (req, res) => {
+routerProd.put('/:pid', (req, res) => {
     try {
-        const mens = await products.updateProduct(req.params.pid, req.body)
+        const mens =  product.updateElement(req.params.pid, req.body)
         res.send(mens)
     } catch (error) {
         console.log(error);

@@ -7,7 +7,7 @@ import { __dirname } from './path.js'
 import { engine } from "express-handlebars";
 import * as path from "path"
 import { Server } from "socket.io";
-import { getManagerMenssages } from "./dao/daoManager.js"
+import { getManagerMessages } from "./dao/daoManager.js"
 import mongoose from "mongoose";
 
 

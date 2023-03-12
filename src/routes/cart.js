@@ -1,13 +1,13 @@
 import { Router } from "express"
-import { getManagerCart, getManagerProducts } from "../dao/daoManager.js";
+import { getManagerCart } from "../dao/daoManager.js";
 const cart = getManagerCart();
 const routerCart = Router()
 
 
 
-routerCart.get('/', (async (req, res) => {
+routerCart.get('/', ( (req, res) => {
     try {
-        const cartFound = await cart.getProducts();
+        const cartFound = cart;
 
         if (!cartFound) {
             res.send("Products dont found")
