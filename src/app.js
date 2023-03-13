@@ -8,7 +8,7 @@ import { engine } from "express-handlebars";
 import * as path from "path"
 import { Server } from "socket.io";
 import { MessageMongoDB } from "./dao/MongoDB/models/Message.js"
-
+import { ProductMongoDB } from "./dao/MongoDB/models/Product.js";
 
 
 const app = express();
@@ -48,23 +48,15 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.get('/realtimeProducts', async (req, res) => {
-  const productsList = await products.getProducts()
-  res.render("partials/realtimeProducts", {
-    titulo: "RealtimeProducts",
-    productsList
-  })
-})
-
 
 io.on("connection", async (socket) => {
 
   console.log("New conection", socket.id);
 
   socket.on("message", async (info) => {
-    const data = MenssageMongoDB.getElements()
+    const data =await MessageMongoDB.getElements()
     console.log(data)
-    const managerMessage = new data.ManagerMenssageMongoDB
+    const managerMessage = new data.MessageMongoDB
     managerMessage.addElements([info]).then(() => {
       managerMessage.getElements().then((message) => {
         console.log(message)
@@ -78,12 +70,12 @@ io.on("connection", async (socket) => {
   });
 
   socket.on('realtimeProducts', async () => {
-    const allProducts = await products.getProducts()
+    const allProducts = await ProductMongoDB.getElements()
     console.log(allProducts)
   })
 
-  socket.on("add-product", product => {
-    products.addProduct(product);
+  socket.on("add-product", (id,product) => {
+   ProductMongoDB.updateElement(id,product);
     io.emit("update-products", product);
   });
 

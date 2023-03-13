@@ -1,6 +1,6 @@
 import {Router} from"express"
 import { ProductMongoDB } from "../dao/MongoDB/models/Product.js";
-const product=new ProductMongoDB()
+const product=new ProductMongoDB
 const routerProd=Router()
 
 
