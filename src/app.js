@@ -49,12 +49,12 @@ app.get('/', async (req, res) => {
 })
 
 
-io.on("connection", async (socket) => {
+io.on("connection",  (socket) => {
 
   console.log("New conection", socket.id);
 
-  socket.on("message", async (info) => {
-    const data =await MessageMongoDB.getElements()
+  socket.on("message", (info) => {
+    const data = MessageMongoDB.getElements()
     console.log(data)
     const managerMessage = new data.MessageMongoDB
     managerMessage.addElements([info]).then(() => {
@@ -69,8 +69,8 @@ io.on("connection", async (socket) => {
     console.log(socket.id, "disconnected");
   });
 
-  socket.on('realtimeProducts', async () => {
-    const allProducts = await ProductMongoDB.getElements()
+  socket.on('realtimeProducts',  () => {
+    const allProducts = ProductMongoDB.getElements()
     console.log(allProducts)
   })
 

@@ -1,19 +1,19 @@
 export const getManagerMessages = async () => {
-    const modelMessage = process.env.SELECTEDBDD == 1 ? await import('./MongoDB/models/Message.js') :
-        await import('./Postgresql/models/Menssage.js')
+    const modelMessage = await import('./MongoDB/models/Message.js') 
+       
     return modelMessage
 }
 
 export const getManagerProducts = async () => {
-    const modelProduct = process.env.SELECTEDBDD == 1 ? await import('./MongoDB/models/Product.js') :
-        await import('./Postgresql/models/Product.js')
+    const modelProduct = await import('./MongoDB/models/Product.js') 
+        
 
     return modelProduct
 }
 
 export const getManagerCart = async () => {
-    const modelCart = process.env.SELECTEDBDD == 1 ? await import('./MongoDB/models/Cart.js') :
-        await import('./Postgresql/models/Cart.js')
+    const modelCart =  await import('./MongoDB/models/Cart.js') 
+    
 
     return modelCart
 }
